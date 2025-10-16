@@ -74,6 +74,19 @@ class Sleep:
         else: # left
             self.boy.image.clip_composite_draw(self.boy.frame * 100, 200, 100, 100, -3.141592/2,'', self.boy.x - 25, self.boy.y - 25, 100, 100)
 
+class AutoRun:
+    def __init__(self, boy):
+        self.boy = boy
+    def do(self):
+        pass
+    def enter(self, e):
+        pass
+    def exit(self, e):
+        pass
+    def draw(self):
+        pass
+
+
 class Boy:
     def __init__(self):
         self.x, self.y = 400, 90
@@ -85,12 +98,14 @@ class Boy:
         self.IDLE = Idle(self)
         # self.sleep = Sleep(self)
         self.RUN = Run(self)
+        self.AutoRun = AutoRun(self)
         self.state_machine = StateMachine(
             self.IDLE,
             {
                 # self.sleep: {space_down: self.IDLE},
                 self.IDLE:{right_down: self.RUN, left_down: self.RUN,right_up: self.RUN,left_up: self.RUN}, #time_out: self.sleep},
-                self.RUN:{right_up: self.IDLE, left_up: self.IDLE, right_down: self.IDLE, left_down: self.IDLE}
+                self.RUN:{right_up: self.IDLE, left_up: self.IDLE, right_down: self.IDLE, left_down: self.IDLE},
+                self.AutoRun:{}
             }
         )
     def update(self):
