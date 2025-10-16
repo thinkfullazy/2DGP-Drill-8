@@ -80,10 +80,11 @@ class AutoRun:
     def __init__(self, boy):
         self.boy = boy
     def do(self):
-        pass
+        if get_time() - self.boy.AutoRun_start_time > 5.0:
+            self.boy.state_machine.handle_state_event(('TIME_OUT', None))
     def enter(self, e):
-        print("AutoRun")
-        pass
+        self.boy.frame = 0
+        self.boy.AutoRun_start_time = get_time()
     def exit(self, e):
         pass
     def draw(self):
@@ -108,7 +109,7 @@ class Boy:
                 # self.sleep: {space_down: self.IDLE},
                 self.IDLE:{right_down: self.RUN, left_down: self.RUN,right_up: self.RUN,left_up: self.RUN, a_key: self.AutoRun}, #time_out: self.sleep},
                 self.RUN:{right_up: self.IDLE, left_up: self.IDLE, right_down: self.IDLE, left_down: self.IDLE},
-                self.AutoRun:{}
+                self.AutoRun:{time_out: self.IDLE}
             }
         )
     def update(self):
