@@ -41,7 +41,7 @@ class Run:
         self.boy = boy
     def do(self):
         self.boy.frame = (self.boy.frame + 1) % 8
-        self.boy.x+= self.boy.dir * 5
+        self.boy.x+= self.boy.dir * 3
 
     def enter(self, e):
         self.boy.frame = 0
@@ -83,7 +83,7 @@ class AutoRun:
         if get_time() - self.boy.AutoRun_start_time > 5.0:
             self.boy.state_machine.handle_state_event(('TIME_OUT', None))
         self.boy.frame = (self.boy.frame + 1) % 8
-        self.boy.x += self.boy.face_dir * 10
+        self.boy.x += self.boy.face_dir * 6
 
 
     def enter(self, e):
@@ -94,9 +94,9 @@ class AutoRun:
         pass
     def draw(self):
         if self.boy.face_dir == 1:  # right
-            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y+25, 150,150)
         else:  # left
-            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y+25, 150,150)
 
 
 class Boy:
