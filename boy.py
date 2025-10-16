@@ -20,11 +20,11 @@ class Idle:
         self.boy = boy
     def do(self):
         self.boy.frame = (self.boy.frame + 1) % 8
-        if get_time() - self.boy.wait_start_time > 2.0:
-            self.boy.state_machine.handle_state_event(('TIME_OUT', None))
+        # if get_time() - self.boy.wait_start_time > 2.0:
+        #     self.boy.state_machine.handle_state_event(('TIME_OUT', None))
     def enter(self, e):
         self.boy.frame = 0
-        self.boy.wait_start_time = get_time()
+        # self.boy.wait_start_time = get_time()
 
     def exit(self, e):
         pass
@@ -83,13 +83,13 @@ class Boy:
         self.image = load_image('animation_sheet.png')
 
         self.IDLE = Idle(self)
-        self.sleep = Sleep(self)
+        # self.sleep = Sleep(self)
         self.RUN = Run(self)
         self.state_machine = StateMachine(
             self.IDLE,
             {
-                self.sleep: {space_down: self.IDLE},
-                self.IDLE:{time_out: self.sleep, right_down: self.RUN, left_down: self.RUN,right_up: self.RUN,left_up: self.RUN},
+                # self.sleep: {space_down: self.IDLE},
+                self.IDLE:{right_down: self.RUN, left_down: self.RUN,right_up: self.RUN,left_up: self.RUN}, #time_out: self.sleep},
                 self.RUN:{right_up: self.IDLE, left_up: self.IDLE, right_down: self.IDLE, left_down: self.IDLE}
             }
         )
